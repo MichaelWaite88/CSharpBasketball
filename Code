@@ -1,0 +1,194 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CSharpBasketball
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string welcome = "Welcome to the basketball game";
+            Console.SetCursorPosition((Console.WindowWidth - welcome.Length) / 2, Console.CursorTop);
+            Console.WriteLine(welcome);
+            Console.Write("You will be prompted throughout the game on what to do next.");
+            Console.WriteLine("It's time for tip-off!");
+
+            int possession = 10;
+            int score = 0;
+
+            while (possession > 0)
+            {
+                Console.WriteLine("Your team has the ball.");
+                Random rnd = new Random();
+                int distance = Convert.ToInt32(rnd.Next(1, 25));
+
+                if (distance == 21)
+                {
+                    Console.WriteLine("You were fouled and MADE 1 out of 2 FREE THROWS.");
+                    possession--;
+                    score++;
+                    Console.WriteLine("SCORE: {0} - 0\n", score);
+                }
+                else if (distance == 22)
+                {
+                    Console.WriteLine("You were fouled and MADE 2 out of 2 FREE THROWS.");
+                    possession--;
+                    score += 2;
+                    Console.WriteLine("SCORE: {0} - 0\n", score);
+                }
+                else if (distance == 23)
+                {
+                    Console.WriteLine("You were fouled and MISSED 2 free throws.");
+                    possession--;
+                    score += 0;
+                    Console.WriteLine("SCORE: {0} - 0\n", score);
+                }
+                else if (distance == 24)
+                {
+                    Console.WriteLine("The ball was STOLEN.");
+                    possession--;
+                    score += 0;
+                    Console.WriteLine("SCORE: {0} - 0\n", score);
+                }
+                else
+                {
+                passOrShoot:
+                    int choose;
+                    Console.WriteLine("You are {0} feet away from the hoop.", distance);
+                    Console.Write("Press 1 to SHOOT or Press 2 to PASS. ");
+                    choose = Convert.ToInt32(Console.ReadLine());
+                    switch (choose)
+                    {
+                        case 1:
+                            int strength;
+                            int distance2;
+                            Console.Write("What strength do you want to shoot the ball? (Hint: Choose a number 1-100) ");
+                            strength = Convert.ToInt32(Console.ReadLine());
+                            distance2 = distance * 5;
+                            if (strength == distance2 && distance < 18)
+                            {
+                                Console.WriteLine("SWISH! You MADE a jumpshot.");
+                                possession--;
+                                score += 2;
+                                Console.WriteLine("SCORE: {0} - 0\n", score);
+                            }
+                            else if ((strength == distance2 + 3) || (strength == distance2 - 3) || (strength == distance2 + 2) || (strength == distance2 - 2) || (strength == distance2 + 1) || (strength == distance - 1) && distance < 18)
+                            {
+                                Console.WriteLine("You banked in the jumpshot. Lucky shot.");
+                                possession--;
+                                score += 2;
+                                Console.WriteLine("SCORE: {0} - 0\n", score);
+                            }
+                            else if (strength == distance2 && (distance > 17 && distance < 21))
+                            {
+                                Console.WriteLine("SWISH! You MADE a 3 POINTER!");
+                                possession--;
+                                score += 3;
+                                Console.WriteLine("SCORE: {0} - 0\n", score);
+                            }
+                            else if ((strength == distance2 + 3) || (strength == distance2 - 3) || (strength == distance2 + 2) || (strength == distance2 - 2) || (strength == distance2 + 1) || (strength == distance - 1) && (distance > 17 && distance < 21))
+                            {
+                                Console.WriteLine("You banked in a 3 pointer. Lucky shot.");
+                                possession--;
+                                score += 3;
+                                Console.WriteLine("SCORE: {0} - 0\n", score);
+                            }
+                            else
+                            {
+                                Console.WriteLine("You missed the shot.");
+                                possession--;
+                                Console.WriteLine("SCORE: {0} - 0\n", score);
+                                
+                            }
+                            break;
+                        case 2:
+                            int passed;
+                            Console.Write("You passed the ball to a teammate");
+                            passed = Convert.ToInt32(rnd.Next(1, 12));
+                            switch (passed)
+                            {
+                                case 1:
+                                    Console.WriteLine(". He was fouled and MADE a free throw.");
+                                    possession--;
+                                    score++;
+                                    Console.WriteLine("SCORE: {0} - 0\n", score);
+                                    break;
+                                case 2:
+                                    Console.WriteLine(" and he MADE a layup.");
+                                    possession--;
+                                    score += 2;
+                                    Console.WriteLine("SCORE: {0} - 0\n", score);
+                                    break;
+                                case 3:
+                                    Console.WriteLine(" and he DUNKED it!");
+                                    possession--;
+                                    score += 2;
+                                    Console.WriteLine("SCORE: {0} - 0\n", score);
+                                    break;
+                                case 4:
+                                    Console.WriteLine(" and he MADE a jump shot.");
+                                    possession--;
+                                    score += 2;
+                                    Console.WriteLine("SCORE: {0} - 0\n", score);
+                                    break;
+                                case 5:
+                                    Console.WriteLine(" and he MADE a 3 pointer!");
+                                    possession--;
+                                    score += 3;
+                                    Console.WriteLine("SCORE: {0} - 0\n", score);
+                                    break;
+                                case 6:
+                                    Console.WriteLine(" and he was fouled. But he MISSED both of his free throws.");
+                                    possession--;
+                                    score += 0;
+                                    Console.WriteLine("SCORE: {0} - 0\n", score);
+                                    break;
+                                case 7:
+                                    Console.WriteLine(" but he MISSED a layup.");
+                                    possession--;
+                                    score += 0;
+                                    Console.WriteLine("SCORE: {0} - 0\n", score);
+                                    break;
+                                case 8:
+                                    Console.WriteLine(" and he MISSED a dunk. That's embarrassing.");
+                                    possession--;
+                                    score += 0;
+                                    Console.WriteLine("SCORE: {0} - 0\n", score);
+                                    break;
+                                case 9:
+                                    Console.WriteLine(" and he MISSED a jump shot.");
+                                    possession--;
+                                    score += 0;
+                                    Console.WriteLine("SCORE: {0} - 0\n", score);
+                                    break;
+                                case 10:
+                                    Console.WriteLine(" and he MISSED a 3 point shot.");
+                                    possession--;
+                                    score += 0;
+                                    Console.WriteLine("SCORE: {0} - 0\n", score);
+                                    break;
+                                case 11:
+                                    Console.WriteLine(" but it was STOLEN.");
+                                    possession--;
+                                    score += 0;
+                                    Console.WriteLine("SCORE: {0} - 0", score);
+                                    break;
+                                default:
+                                    goto passOrShoot;
+                            }
+                        break;
+                        default:
+                            goto passOrShoot;
+                    }
+                    
+                }
+
+                }
+            Console.ReadLine();
+            }
+
+        }
+    }
